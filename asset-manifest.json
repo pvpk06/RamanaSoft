@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/RamanaSoft/static/css/main.7433ab9e.css",
+    "main.js": "/RamanaSoft/static/js/main.f2f6693f.js",
+    "static/js/213.53d95c86.chunk.js": "/RamanaSoft/static/js/213.53d95c86.chunk.js",
+    "static/js/732.fad694cd.chunk.js": "/RamanaSoft/static/js/732.fad694cd.chunk.js",
+    "static/js/453.21e92646.chunk.js": "/RamanaSoft/static/js/453.21e92646.chunk.js",
+    "static/media/ramanasoft stump.png": "/RamanaSoft/static/media/ramanasoft stump.2c8f2d85ff67f9bd2440.png",
+    "static/media/slider3.jpg": "/RamanaSoft/static/media/slider3.bdec4a38bd95e739dfde.jpg",
+    "static/media/slider2.jpg": "/RamanaSoft/static/media/slider2.87175f21847e9e56b02b.jpg",
+    "static/media/slider1.jpg": "/RamanaSoft/static/media/slider1.d1f26114154c8d8765fc.jpg",
+    "static/media/contact.jpg": "/RamanaSoft/static/media/contact.89f4537384494cb4dd98.jpg",
+    "static/media/image1.png": "/RamanaSoft/static/media/image1.c32cdc7febbc6a7d7523.png",
+    "static/media/New-Project.png.webp": "/RamanaSoft/static/media/New-Project.png.d502ebdb8a386ec59449.webp",
+    "static/media/jobsearch.jpeg": "/RamanaSoft/static/media/jobsearch.7a8cd39878d88fe87ef9.jpeg",
+    "static/media/thumbnail.jpeg": "/RamanaSoft/static/media/thumbnail.7bd107b6e997dc8b5c05.jpeg",
+    "static/media/ravisir_sign.png": "/RamanaSoft/static/media/ravisir_sign.2cb1a40a731be7880e56.png",
+    "static/media/bg.jpg": "/RamanaSoft/static/media/bg.42cc6bc30b262fb9965f.jpg",
+    "static/media/RSLogo.jpeg": "/RamanaSoft/static/media/RSLogo.20be26e87f9950418ada.jpeg",
+    "static/media/p3.jpeg": "/RamanaSoft/static/media/p3.20be26e87f9950418ada.jpeg",
+    "static/media/raspberry-pi.png": "/RamanaSoft/static/media/raspberry-pi.8ed71307ae2b2b52b5e6.png",
+    "static/media/ramprasadsir_sign.png": "/RamanaSoft/static/media/ramprasadsir_sign.30accc0e1178b5517897.png",
+    "static/media/paypal.png": "/RamanaSoft/static/media/paypal.9907652fbdf2226d490a.png",
+    "static/media/avatar2.avif": "/RamanaSoft/static/media/avatar2.02a3c5c5ab9a1f4e2e00.avif",
+    "static/media/janssen.png": "/RamanaSoft/static/media/janssen.8ebf9e37be7a2cb22ed7.png",
+    "static/media/facebook.png": "/RamanaSoft/static/media/facebook.795fce8e464693d7346d.png",
+    "static/media/stripe.png": "/RamanaSoft/static/media/stripe.c12a1ccd5319cf26a373.png",
+    "static/media/amd.png": "/RamanaSoft/static/media/amd.7da9c90e8b0ef12ef768.png",
+    "index.html": "/RamanaSoft/index.html",
+    "main.7433ab9e.css.map": "/RamanaSoft/static/css/main.7433ab9e.css.map",
+    "main.f2f6693f.js.map": "/RamanaSoft/static/js/main.f2f6693f.js.map",
+    "213.53d95c86.chunk.js.map": "/RamanaSoft/static/js/213.53d95c86.chunk.js.map",
+    "732.fad694cd.chunk.js.map": "/RamanaSoft/static/js/732.fad694cd.chunk.js.map",
+    "453.21e92646.chunk.js.map": "/RamanaSoft/static/js/453.21e92646.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7433ab9e.css",
+    "static/js/main.f2f6693f.js"
+  ]
+}
