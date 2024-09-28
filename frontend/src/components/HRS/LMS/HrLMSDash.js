@@ -380,7 +380,9 @@ const LMSDashboard = () => {
                                               </Typography>
                                               <Typography id="modal-description" sx={{ mt: 2, flexGrow: 1 }}>
                                                 <iframe
-                                                  src={`http://localhost:5000${selectedMaterial?.url}`}
+                                                  // src={`http://localhost:5000${selectedMaterial?.url}`}
+                                                  src={`https://ramanasoftwebsite-production.up.railway.app${selectedMaterial?.url}`}
+
                                                   style={{ width: '100%', height: '100%', border: 'none' }}
                                                   title={selectedMaterial?.name}
                                                   // sandbox="allow-scripts allow-popups allow-same-origin"
