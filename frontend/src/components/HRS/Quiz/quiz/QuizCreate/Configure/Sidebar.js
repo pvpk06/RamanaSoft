@@ -10,7 +10,9 @@ const ConfigurePanel = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const currentPath = window.location.pathname;
-    const token = currentPath.split('/')[4];
+    // const token = currentPath.split('/')[4];
+    const token = currentPath.split('/')[6];
+
     console.log("TOKEN :", token);    const [notification, setNotification] = useState({ message: '', type: '' });
     const [selectedView, setSelectedView] = useState('General');
 

@@ -8,7 +8,9 @@ const PreviewQuiz = () => {
   const [quizData, setQuizData] = useState(null);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const currentPath = window.location.pathname;
-  const token = currentPath.split('/')[4];
+  // const token = currentPath.split('/')[4];
+  const token = currentPath.split('/')[6];
+
   console.log("TOKEN :", token);  
   useEffect(() => {
     if (token) {

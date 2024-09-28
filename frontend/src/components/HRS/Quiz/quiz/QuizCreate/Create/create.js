@@ -12,7 +12,9 @@ const CreationPage = () => {
   const [pages, setPages] = useState([]);
   
   const currentPath = window.location.pathname;
-  const token = currentPath.split('/')[4];
+  // const token = currentPath.split('/')[4];
+  const token = currentPath.split('/')[6];
+
   console.log("TOKEN :", token);
   const params = useParams();
   const paramValue = params['*']; 

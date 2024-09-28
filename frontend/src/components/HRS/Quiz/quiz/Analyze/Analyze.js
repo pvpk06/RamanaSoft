@@ -10,7 +10,9 @@ import {
 
 const AnalyzeQuiz = () => {
   const currentPath = window.location.pathname;
-  const token = currentPath.split('/')[4];
+  // const token = currentPath.split('/')[4];
+  const token = currentPath.split('/')[6];
+
   console.log("TOKEN :", token);  const [quizData, setQuizData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

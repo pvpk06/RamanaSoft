@@ -161,7 +161,9 @@ const LMS_dash = () => {
           setSelectedTopic(firstTopic);
           setSelectedSubTopic(firstSubTopic);
           setSelectedMaterial(firstMaterial);
-          setIframeUrl(`http://localhost:5000${firstMaterial.url}`);
+          // setIframeUrl(`http://localhost:5000${firstMaterial.url}`);
+          setIframeUrl(`https://ramanasoftwebsite-production.up.railway.app${firstMaterial.url}`);
+
         }
       } else {
         setCourseStatus(progress);
@@ -222,7 +224,8 @@ const LMS_dash = () => {
     if (currentIndex < currentTopicMaterials.length - 1) {
       const nextMaterial = currentTopicMaterials[currentIndex + 1];
       setSelectedMaterial(nextMaterial);
-      setIframeUrl(`http://localhost:5000${nextMaterial.url}`);
+      // setIframeUrl(`http://localhost:5000${nextMaterial.url}`);
+      setIframeUrl(`https://ramanasoftwebsite-production.up.railway.app${nextMaterial.url}`);
   
       // Unlock the next material
       setCourseStatus(prevStatus => ({
@@ -273,8 +276,9 @@ const LMS_dash = () => {
         setSelectedSubTopic(nextSubTopic);
         if (nextMaterial) {
           setSelectedMaterial(nextMaterial);
-          setIframeUrl(`http://localhost:5000${nextMaterial.url}`);
-  
+          // setIframeUrl(`http://localhost:5000${nextMaterial.url}`);
+          setIframeUrl(`https://ramanasoftwebsite-production.up.railway.app${nextMaterial.url}`);
+
           // Unlock the first material of the next subtopic
           setCourseStatus(prevStatus => ({
             ...prevStatus,
@@ -313,8 +317,9 @@ const LMS_dash = () => {
   
           if (nextMaterial) {
             setSelectedMaterial(nextMaterial);
-            setIframeUrl(`http://localhost:5000${nextMaterial.url}`);
-  
+            // setIframeUrl(`http://localhost:5000${nextMaterial.url}`);
+            setIframeUrl(`https://ramanasoftwebsite-production.up.railway.app${nextMaterial.url}`);
+
             // Unlock the first material of the next topic's first subtopic
             setCourseStatus(prevStatus => ({
               ...prevStatus,
@@ -371,7 +376,8 @@ const LMS_dash = () => {
         const nextMaterial = courses[selectedCourse].topics[nextTopic].subTopics[nextSubTopic]?.materials[0];
         if (nextMaterial) {
           setSelectedMaterial(nextMaterial);
-          setIframeUrl(`http://localhost:5000${nextMaterial.url}`);
+          // setIframeUrl(`http://localhost:5000${nextMaterial.url}`);
+          setIframeUrl(`https://ramanasoftwebsite-production.up.railway.app${nextMaterial.url}`);
 
           setCourseStatus((prevStatus) => ({
             ...prevStatus,
@@ -412,7 +418,9 @@ const LMS_dash = () => {
     const firstMaterial = courses[course]?.topics[topic]?.subTopics[firstSubTopic]?.materials[0];
     setSelectedSubTopic(firstSubTopic);
     setSelectedMaterial(firstMaterial);
-    setIframeUrl(firstMaterial && `http://localhost:5000${firstMaterial.url}`);
+    // setIframeUrl(firstMaterial && `http://localhost:5000${firstMaterial.url}`);
+    setIframeUrl(firstMaterial && `https://ramanasoftwebsite-production.up.railway.app${firstMaterial.url}`);
+
   };
 
   const handleToggleSubTopic = (subTopic) => {
@@ -529,7 +537,9 @@ const LMS_dash = () => {
                               if (isUnlocked) {
                                 setSelectedSubTopic(subTopicName);
                                 setSelectedMaterial(material);
-                                setIframeUrl(`http://localhost:5000${material.url}`);
+                                // setIframeUrl(`http://localhost:5000${material.url}`);
+                                setIframeUrl(`https://ramanasoftwebsite-production.up.railway.app${material.url}`);
+
                               }
                             }}
                             disabled={!isUnlocked}
