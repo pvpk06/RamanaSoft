@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/RamanaSoft/static/css/main.eaf8629c.css",
-    "main.js": "/RamanaSoft/static/js/main.e7e05672.js",
+    "main.js": "/RamanaSoft/static/js/main.2d49f3e0.js",
     "static/js/213.53d95c86.chunk.js": "/RamanaSoft/static/js/213.53d95c86.chunk.js",
     "static/js/732.fad694cd.chunk.js": "/RamanaSoft/static/js/732.fad694cd.chunk.js",
     "static/js/453.21e92646.chunk.js": "/RamanaSoft/static/js/453.21e92646.chunk.js",
@@ -28,13 +28,13 @@
     "static/media/amd.png": "/RamanaSoft/static/media/amd.7da9c90e8b0ef12ef768.png",
     "index.html": "/RamanaSoft/index.html",
     "main.eaf8629c.css.map": "/RamanaSoft/static/css/main.eaf8629c.css.map",
-    "main.e7e05672.js.map": "/RamanaSoft/static/js/main.e7e05672.js.map",
+    "main.2d49f3e0.js.map": "/RamanaSoft/static/js/main.2d49f3e0.js.map",
     "213.53d95c86.chunk.js.map": "/RamanaSoft/static/js/213.53d95c86.chunk.js.map",
     "732.fad694cd.chunk.js.map": "/RamanaSoft/static/js/732.fad694cd.chunk.js.map",
     "453.21e92646.chunk.js.map": "/RamanaSoft/static/js/453.21e92646.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.eaf8629c.css",
-    "static/js/main.e7e05672.js"
+    "static/js/main.2d49f3e0.js"
   ]
 }
