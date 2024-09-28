@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/RamanaSoft/static/css/main.7433ab9e.css",
-    "main.js": "/RamanaSoft/static/js/main.f2f6693f.js",
+    "main.css": "/RamanaSoft/static/css/main.eaf8629c.css",
+    "main.js": "/RamanaSoft/static/js/main.e7e05672.js",
     "static/js/213.53d95c86.chunk.js": "/RamanaSoft/static/js/213.53d95c86.chunk.js",
     "static/js/732.fad694cd.chunk.js": "/RamanaSoft/static/js/732.fad694cd.chunk.js",
     "static/js/453.21e92646.chunk.js": "/RamanaSoft/static/js/453.21e92646.chunk.js",
-    "static/media/ramanasoft stump.png": "/RamanaSoft/static/media/ramanasoft stump.2c8f2d85ff67f9bd2440.png",
+    "static/media/ramanasoft_stump.png": "/RamanaSoft/static/media/ramanasoft_stump.2c8f2d85ff67f9bd2440.png",
     "static/media/slider3.jpg": "/RamanaSoft/static/media/slider3.bdec4a38bd95e739dfde.jpg",
     "static/media/slider2.jpg": "/RamanaSoft/static/media/slider2.87175f21847e9e56b02b.jpg",
     "static/media/slider1.jpg": "/RamanaSoft/static/media/slider1.d1f26114154c8d8765fc.jpg",
@@ -27,14 +27,14 @@
     "static/media/stripe.png": "/RamanaSoft/static/media/stripe.c12a1ccd5319cf26a373.png",
     "static/media/amd.png": "/RamanaSoft/static/media/amd.7da9c90e8b0ef12ef768.png",
     "index.html": "/RamanaSoft/index.html",
-    "main.7433ab9e.css.map": "/RamanaSoft/static/css/main.7433ab9e.css.map",
-    "main.f2f6693f.js.map": "/RamanaSoft/static/js/main.f2f6693f.js.map",
+    "main.eaf8629c.css.map": "/RamanaSoft/static/css/main.eaf8629c.css.map",
+    "main.e7e05672.js.map": "/RamanaSoft/static/js/main.e7e05672.js.map",
     "213.53d95c86.chunk.js.map": "/RamanaSoft/static/js/213.53d95c86.chunk.js.map",
     "732.fad694cd.chunk.js.map": "/RamanaSoft/static/js/732.fad694cd.chunk.js.map",
     "453.21e92646.chunk.js.map": "/RamanaSoft/static/js/453.21e92646.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7433ab9e.css",
-    "static/js/main.f2f6693f.js"
+    "static/css/main.eaf8629c.css",
+    "static/js/main.e7e05672.js"
   ]
 }
