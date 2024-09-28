@@ -1,0 +1,61 @@
+.response-container {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin: 16px;
+    background-color: #f9f9f9;
+  }
+  
+  .response-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .response-header div {
+    margin-right: 16px;
+  }
+  
+  .response-summary {
+    margin: 16px 0;
+  }
+  
+  .response-summary h3 {
+    margin: 0;
+  }
+  
+  .question-block {
+    border-top: 1px solid #ddd;
+    padding: 16px 0;
+  }
+  
+  .question-block:first-child {
+    border-top: none;
+  }
+  
+  .question-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .question-header .status {
+    font-size: 24px;
+    margin-right: 8px;
+  }
+  
+  .options {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .options li {
+    margin: 8px 0;
+  }
+  
+  .correct-answer {
+    color: green;
+  }
+  
+  .incorrect-answer {
+    color: red;
+  }
+  

@@ -1,0 +1,40 @@
+.span-text{
+    color:#666666;
+    font-weight: 600;
+}
+.card-text{
+    color:#B3B3B3;
+    font-family: 'Roboto';
+}
+
+.edit-btn{
+    color:#7582FF ;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.edit-btn:hover {
+    background: transparent;
+    color: #7582FF;
+    font-weight: bold;
+    margin-right: 0;
+    
+}
+
+.delete-btn{
+    color:red ;
+    background-color: transparent;
+    border: none;
+}
+.delete-btn:hover {
+    background: transparent;
+    color: red;
+    font-weight: bold;
+    margin-left: 0;
+    padding-left: auto;
+    box-sizing: border-box;
+}
+.job-card{
+    text-decoration: none;
+}

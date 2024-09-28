@@ -1,0 +1,250 @@
+/* .certificate-generator {
+    text-align: center;
+  }
+  
+  .button-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .generate-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .generate-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  .certificate {
+    font-family: 'Times New Roman', Times, serif;
+    width: 210mm;
+    height: 297mm; 
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    line-height: 1.6;
+    position: relative;
+  }
+  
+  .certificate img.company-logo {
+    max-width: 150px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .certificate h1 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .certificate .date {
+    text-align: right;
+    margin-right: 40px;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .certificate p {
+    font-size: 16px;
+    margin: 20px 30px;
+  }
+  
+  .company-info {
+    margin-top: 40px;
+    text-align: left;
+    padding-left: 30px;
+  }
+  
+  .signature-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .signature {
+    width: 120px;
+    height: 40px;
+  }
+  
+  .stamp {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: 60%;
+    left: 10%;
+  }
+  
+  .signatory-text {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  
+  .company-info p {
+    margin: 10px 0;
+  }
+  */
+
+  .certificate {
+    font-family: 'Times New Roman', Times, serif;
+    width: 210mm;
+    height: 297mm; 
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #fff;
+    line-height: 1.6;
+  }
+  
+  .certificate img.company-logo {
+    margin: 0 auto;
+    margin-top: 20px;
+    max-width: 760px;
+    display: block;
+  }
+  
+  .certificate h1 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .certificate .date {
+    text-align: right;
+    font-size: 18px;
+    margin-right: 60px;
+    margin-bottom: 20px;
+  }
+  
+  .certificate p {
+    text-indent: 30px;
+    font-size: 16px;
+    margin: 10px 0;
+    margin-left: 40px;
+    margin-right: 25px;
+  }
+  
+  .certificate .details {
+    padding: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  
+  .certificate .details p {
+    margin: 5px 10px 5px 0;
+    align-items: center;
+  }
+  
+  .certificate .details p strong {
+    width: 150px;
+    display: inline-block;
+  }
+  
+  .certificate .regards-p {
+    margin-left: 30px;
+  
+  }
+  
+  .certificate .signature-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .certificate .signature-container2{
+    margin-top: -10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .certificate .ceo-signature {
+    font-size: 16px;
+  }
+  
+  .certificate .manager-signature {
+    font-size: 16px;
+    text-align: right;
+    margin-right: 20px;
+  }
+  .input-form {
+    max-width: 400px;
+    margin: 0 auto 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f7f7f7;
+  }
+  
+  .input-form input,.input-form select, .input-form .generate_buttons {
+    display: block;
+    width: 95%;
+  
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .input-form .generate_buttons {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .input-form .generate_buttons:hover {
+    background-color: #45a049;
+  }
+  
+  .date-input-container {
+    margin-bottom: 1rem;
+  }
+  
+  .date-input-container label {
+    display: block;
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .input-container {
+    display: flex;
+  }
+  
+  .info-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #007bff;
+    margin-left: 10px;
+  }
+  
+  .certificate .info-text {
+    visibility: hidden;
+    width: 2500px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position info above the button */
+    left: 50%;
+    margin-left: -125px; /* Center the info */
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  

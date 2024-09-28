@@ -1,0 +1,73 @@
+.grading-container {
+    background-color: #1cbfff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.Grading_table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.Grading_tr{
+    background-color: #f8f9fa;
+}
+
+.Grading_th{
+    color: white;
+    font-weight: bold;
+    background-color: #1cbfff;
+}
+
+.Grading_th1{
+    color: white;
+    border-top-left-radius: 12px;
+    font-weight: bold;
+    background-color: #1cbfff;
+}
+
+.Grading_th3{
+    color: white;
+    border-top-right-radius: 12px;
+    font-weight: bold;
+    background-color: #1cbfff;
+}
+
+.Grading_th,.Grading_th1,.Grading_th3, .Grading_td {
+    padding: 10px;
+    text-align: left;
+}
+
+.Grading_text_input{
+    border: none;
+    text-align: center;
+    width: 97%;
+    height: 30px;
+    padding: 5px;
+}
+
+.Grading_number_input{
+    border: none;
+    text-align: center;
+    height: 30px;
+    width: 97%;
+    padding: 5px;
+
+}
+
+.Grading_button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 30px 0px 30px 30px;
+    width: 120px;
+}
+
+.results-link {
+    color: #007bff;
+    cursor: pointer;
+}   

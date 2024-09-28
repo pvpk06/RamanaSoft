@@ -1,0 +1,36 @@
+.configure-panel {
+  display: flex;
+  height: 600px;
+}
+
+.Configure-side-nav {
+  width: 270px;
+  padding: 20px 10px;
+}
+
+.Configure-side-nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Configure-side-nav li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.Configure-side-nav li.active {
+  background-color: #1cbfff;
+  color: rgb(255, 255, 255);
+  border-radius: 0px;
+}
+
+.configure-content {
+  padding: 30px;
+  width: 1000px; 
+  border: 2px #1cbfff solid;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.159);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

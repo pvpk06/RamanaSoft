@@ -1,0 +1,121 @@
+.certificate {
+  width: 800px;
+  height: 500px;
+  border: 2px solid #000;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  position: relative;
+  background-color: white;
+}
+
+
+.Certificate_Edit_btn{
+  display: flex;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.rs {
+  background-color: #ff4500;
+  color: #fff;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.company-name {
+  color: #ff4500;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.Certificate_content {
+  text-align: center;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-style: italic;
+  margin-bottom: 30px;
+}
+
+.recipient-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px 0;
+  border-bottom: 1px solid #000;
+  display: inline-block;
+  min-width: 60%;
+}
+
+.details {
+  margin: 30px 0;
+}
+
+.signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.signature {
+  text-align: center;
+}
+
+.role {
+  margin-top: 5px;
+}
+
+.issue-date {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 1px solid #000;
+  padding-top: 5px;
+}
+
+.border-design {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 100px 100px 0;
+  border-color: transparent #ff4500 transparent transparent;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 100px 0 0 100px;
+  border-color: transparent transparent transparent #ffa500;
+}

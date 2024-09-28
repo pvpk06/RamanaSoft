@@ -1,0 +1,97 @@
+
+.General_quiz-options-container {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 900px;
+    margin: 10px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .General_quiz-options-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .General_form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .General_form-group label {
+    font-size: 15px;
+    font-weight: bold;
+    color: #1cbfff;
+    margin-bottom: 10px;
+  }
+  
+  .General_form-group input[type="number"],
+  .General_form-group input[type="datetime-local"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+  }
+  
+  .General_form-group.General_checkbox {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .General_form-group.General_checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #333;
+  }
+  
+  .General_form-group.General_checkbox input[type="checkbox"] {
+    margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid #1cbfff;
+    border-radius: 3px;
+    width: 12px;
+    height: 12px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .General_form-group.General_checkbox input[type="checkbox"]:checked::before {
+    content: '\2713';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #1cbfff;
+    font-size: 13px;
+    font-weight: bolder;
+  }
+  
+  .General_submit-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+  }
+  
+  .General_submit-button {
+    background-color: #1cbfff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .General_submit-button:hover {
+    background-color: #1cbfff;
+  }

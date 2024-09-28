@@ -1,0 +1,38 @@
+.results_container {
+    padding: 20px;
+    width: 1000px;
+    height: 750px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .results_header {
+    text-align: center;
+    color: #333;
+  }
+  
+  .results_loading,
+  .results_error {
+    text-align: center;
+    color: #ff0000;
+    font-size: 18px;
+  }
+  
+  .results {
+    margin-top: 20px;
+  }
+  
+  .results_text {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .results_certificate {
+    margin-top: 20px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  

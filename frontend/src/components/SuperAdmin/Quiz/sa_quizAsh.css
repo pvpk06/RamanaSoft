@@ -1,0 +1,76 @@
+/* Ensure the container covers the full viewport */
+.SA_quiz-dash-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; /* Allow scrolling if content overflows */
+    background-color: #f9f9f9; /* Light background color for better contrast */
+}
+
+/* Styling for folder list */
+.SA_folder-list {
+    width: 100%;
+    max-width: 1200px; /* Optional: Limit the max width for readability */
+    margin: 0 auto; /* Center the content */
+}
+
+.SA_folder-list-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.SA_folder-item {
+    margin-bottom: 10px;
+}
+
+.SA_folder-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff; /* White background for folders */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s; /* Smooth hover effect */
+}
+
+
+
+.SA_subfolder-title {
+    font-size: 1.1em;
+    cursor: pointer;
+    padding: 8px;
+    background-color: #f5f5f5; /* Light background for subfolders */
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth hover effect */
+}
+
+
+.SA_quiz-list {
+    padding-left: 20px;
+}
+
+.SA_quiz-item {
+    margin-bottom: 5px;
+}
+
+.SA_quiz-name {
+    cursor: pointer;
+    padding: 8px;
+    background-color: #ffffff; /* White background for quizzes */
+    border-radius: 5px;
+    margin: 15px;
+    gap: 15px;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth hover effect */
+}
+
+.SA_error-message {
+    color: #d9534f; /* Red color for errors */
+    margin-top: 10px;
+    font-weight: bold;
+}

@@ -1,0 +1,61 @@
+/* General Styles */
+.intern_reg_container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .intern_reg_title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .intern_reg_section {
+    margin-bottom: 20px;
+  }
+  
+  .intern_reg_section_title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .intern_reg_form_group {
+    margin-bottom: 15px;
+  }
+  
+  .intern_reg_input {
+    width: 100%;
+  }
+  .error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25em;
+  }
+  .intern_reg_button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .intern_reg_button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .intern_reg_input {
+      width: 100% !important;
+    }
+  
+    .intern_reg_button {
+      width: 100% !important;
+    }
+  }
+  

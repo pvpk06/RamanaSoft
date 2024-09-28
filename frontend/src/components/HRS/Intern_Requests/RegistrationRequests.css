@@ -1,0 +1,14 @@
+
+
+.btn-container {
+    display: flex;
+    justify-content: space-between; /* Ensures equal space between buttons */
+}
+
+.green-background{
+    background-color: green;
+}
+
+.btn-accept{
+    background: none;
+}
