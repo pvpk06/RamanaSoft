@@ -302,8 +302,8 @@ function App() {
   return (
     <div className=''>
       <ToastContainer autoClose={5000} />
-      {/* <BrowserRouter> */}
-      <HashRouter basepath='/RamanaSoft/'>
+      <BrowserRouter>
+      {/* <HashRouter basepath='/RamanaSoft/'> */}
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home defaultTab="home" />} />
@@ -341,8 +341,8 @@ function App() {
           {/* Guest Routes */}
           <Route path="/extern_dash/*" element={<PrivateRoute role="Guest" element={<GuestDashboard defaultTab="Applied" />} />} />
         </Routes>
-      </HashRouter>
-            {/* </BrowserRouter> */}
+      {/* </HashRouter> */}
+            </BrowserRouter>
     </div>
   );
 }

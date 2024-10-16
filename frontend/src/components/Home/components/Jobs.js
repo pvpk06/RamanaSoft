@@ -297,7 +297,7 @@ const ViewJobs = () => {
               <h5 className='fw-bold text-danger mb-3'>Posted by: {selectedJob.name}</h5>
               <div className='text-center mt-4'>
                 <button className='btn btn-primary px-4 py-2' onClick={handleApplyNow}>Apply Now</button>
-              </div>
+               </div>
             </div>
           </Col>
         )}

@@ -232,6 +232,7 @@ const Home = ({ defaultTab }) => {
           Object.keys(Cookies.get()).forEach(cookieName => {
             Cookies.remove(cookieName);
           });
+          console.log(intern)
           Cookies.set('role', 'intern', { expires: 30 });
           Cookies.set('internID', intern.candidateID, { expires: 30 });
           Cookies.set('verified', 'true', { expires: 30 });
@@ -995,6 +996,34 @@ const Home = ({ defaultTab }) => {
                   }}
                   onClick={() => handleLoginMenuItemClick('Guest')}>
                   Guest
+                </MenuItem>
+                <MenuItem
+                  style={{
+                    padding: "0px 24px",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    textAlign: 'center',
+                    marginTop: "10px",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0)",
+                    transition: "background-color 1s ease, transform 1s ease"
+                  }}
+                  onClick={() => handleLoginMenuItemClick('hr')}>
+                  HR
+                </MenuItem>
+                <MenuItem
+                  style={{
+                    padding: "0px 24px",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    textAlign: 'center',
+                    marginTop: "10px",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0)",
+                    transition: "background-color 1s ease, transform 1s ease"
+                  }}
+                  onClick={() => handleLoginMenuItemClick('SA')}>
+                  Admin
                 </MenuItem>
               </Menu>
             </li>

@@ -1,0 +1,70 @@
+/* createdash.css */
+
+.CreateDash_Navbody {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+}
+
+.CreateDash_top-panel {
+    background-color: #1cbfff;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.CreateDash_menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+.CreateDash_menu li {
+    cursor: pointer;
+    padding: 10px 20px;
+    color: #000000b7;
+    font-weight:bold;
+    transition: background-color 0.3s ease;
+}
+
+.CreateDash_menu li.active {
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.CreateDash_Preview {
+    margin-left: auto;
+    margin-right: 20px;
+    padding: 10px 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+
+}
+
+
+.CreateDash_content {
+    flex: 1;
+    background-color: #fff;
+    margin: 0px auto;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    border: 1px solid #ccc;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.icon-spacing {
+    margin-right: 5px;
+}

@@ -2,7 +2,6 @@
   "name": "frontnend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pvpk06.github.io/RamanaSoft",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^43.0.0",
     "@ckeditor/ckeditor5-react": "^9.0.0",
@@ -34,7 +33,6 @@
     "react-scripts": "5.0.1",
     "react-table": "^7.8.0",
     "react-toastify": "^10.0.5",
-    "socket.io-client": "^4.7.5",
     "utils": "^0.3.1",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5",
@@ -67,3 +65,6 @@
     ]
   }
 }
+
+
+

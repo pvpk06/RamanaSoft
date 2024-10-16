@@ -12,12 +12,17 @@ const { check, validationResult } = require('express-validator');
 const app = express();
 const crypto = require('crypto');
 const secret = crypto.randomBytes(64).toString('hex');
+const https = require('https');
+const WebSocket = require('ws');
 
 env.config();
 const path = require('path');
 const fs = require('fs');
-const mime = require('mime');
 
+// const options = {
+//   key: fs.readFileSync('/etc/letsencrypt/live/backend.ramanasoft.com/privkey.pem'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/backend.ramanasoft.com/fullchain.pem')
+// };
 
 const PORT = process.env.PORT ||  5000;
 
@@ -45,6 +50,13 @@ app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+// var server = https.createServer(options, app).listen(5000, () => {
+//   console.log('HTTPS Server running on port 5000');
+// });
+
+// console.log("server :", server);
+
 var server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
@@ -85,7 +97,6 @@ const sendEmail = async (email, mailOptions) => {
 };
 
 //HR api to get jobs in a company posted by same HR
-
 app.get('/api/hr-job-applications', async (req, res) => {
   const { companyName, hrId } = req.query;
   console.log("Company name", companyName, hrId)
@@ -756,7 +767,7 @@ app.post('/api/hr-login', [
 });
 
 //Super admin api to delete hr
-app.delete('/api/api/delete_hr/:id', async (req, res) => {
+app.delete('/api/delete_hr/:id', async (req, res) => {
   const hrId = req.params.id;
 
   try {
@@ -876,9 +887,11 @@ app.post("/api/update-job", async (req, res) => {
 
 //intern requests for both SA and HR
 app.get("/api/intern-requests", async (req, res) => {
+  console.log("api hit occoured")
   try {
     const intern = await query('SELECT * FROM intern_requests');
-    io.emit('internRequestsUpdate', intern);
+    // io.emit('internRequestsUpdate', intern);
+    console.log(intern);
     res.status(200).json(intern);
   } catch (err) {
     res.status(500).json({ message: "Server error" });
@@ -889,7 +902,7 @@ app.get("/api/intern-requests", async (req, res) => {
 app.get("/api/guest-requests", async (req, res) => {
   try {
     const guest = await query('SELECT * FROM guest_requests');
-    io.emit('internRequestsUpdate', guest);
+    // io.emit('internRequestsUpdate', guest);
     res.status(200).json(guest);
   } catch (err) {
     res.status(500).json({ message: "Server error" });
@@ -1387,13 +1400,8 @@ app.get("/api/view-jobs/:jobId", async (req, res) => {
   const { jobId } = req.params
   console.log(jobId)
   try {
-    const jobs = await query(`
-      SELECT jobs.*, hr_data.fullName AS name, hr_data.mobileNo as contact
-      FROM jobs 
-      INNER JOIN hr_data ON jobs.postedBy = hr_data.HRid
-      WHERE jobs.jobId = ${jobId}
-    `);
-        console.log(jobs)
+    const jobs = await query(`SELECT jobs.*, hr_data.fullName AS name, hr_data.mobileNo as contact FROM jobs INNER JOIN hr_data ON jobs.postedBy = hr_data.HRid WHERE jobs.jobId = ${jobId}`);
+    console.log(jobs)
     res.status(200).json(jobs[0]);
   } catch (err) {
     res.status(500).json({ message: "Server error" });
@@ -1827,9 +1835,9 @@ app.post("/api/accept-guests", async (req, res) => {
          FROM guest_data 
          WHERE email IN (?) OR mobileno IN (?)
          UNION 
-         SELECT email, mobileno 
+         SELECT email, mobileNo 
          FROM intern_data 
-         WHERE email IN (?) OR mobileno IN (?)`,
+         WHERE email IN (?) OR mobileNo IN (?)`,
         [
           emails.length > 0 ? emails : [null],
           mobileNos.length > 0 ? mobileNos : [null],
@@ -2099,7 +2107,7 @@ app.post('/api/assign-quiz-to-guest-domain', (req, res) => {
 app.post('/api/assign-quiz-to-user', (req, res) => {
   const { quizId, userIds } = req.body;
   const values = userIds.map(userId => [userId, quizId]);
-
+  console.log(req.body);
   pool.query('INSERT INTO user_quizzes (internID, quiz_id) VALUES ?', [values], (err, result) => {
     if (err) {
       console.error('Error assigning quiz:', err);
@@ -3056,7 +3064,7 @@ app.get("/api/hr-other-leads", async (req, res) => {
 
 app.post("/api/add-hr",async(req,res)=>{
   const {address,companyName,email,hrId,hrName,phoneNumber,website}=req.body;
-
+  console.log(req.body);
   try{
     console.log("In")
     const respo=await query(`INSERT INTO companies (companyName,website,mobileNo,email,address,hrName,publishedHrID) VALUES(?,?,?,?,?,?,?)`,[companyName,website,phoneNumber,email,address,hrName,hrId])
@@ -3154,47 +3162,6 @@ app.get('/api/show_all_certificates', (req, res) => {
   });
 
 
-
-
-  
-// API to create course
-// app.post('/api/create_course', async(req, res) => {
-//   const { course_name, domains } = req.body;
-//   console.log("body", req.body)
-//   const sql  = 'INSERT INTO courses (course_name, material, belongs) VALUES (?, ?, ?)';
-//   await query(sql, [course_name, JSON.stringify([]), JSON.stringify(domains)], (err) => {
-//     if (err) {
-//       console.error('Error creating course:', err);
-//       res.status(500).json({ error: 'Failed to create course' });
-//     } else {
-//       res.status(201).json({ message: 'Course created successfully' });
-//     }
-//   });
-// });
-
-
-// app.get('/api/courses', async (req, res) => {
-//   try {
-//     const courses = await query('SELECT * FROM courses');
-//     res.status(200).json(courses);
-//   } catch (error) {
-//     console.error('Error fetching courses:', error);
-//     res.status(500).json({ error: 'Failed to fetch courses' });
-//   }
-// });
-
-
-
-// app.get('/api/courses', async (req, res) => {
-//   try {
-//     const courses = await query('SELECT * FROM Course');
-//     res.status(200).json(courses);
-//   } catch (error) {
-//     console.error('Error fetching courses:', error);
-//     res.status(500).json({ error: 'Failed to fetch courses' });
-//   }
-// });
-
 app.get('/api/courses', async (req, res) => {
   try {
     const courses = await query('SELECT * FROM Course');
@@ -3230,124 +3197,6 @@ app.get('/api/courses', async (req, res) => {
   }
 });
 
-
-
-
-
-app.get('/api/course_data/:courseName', async (req, res) => {
-  const { courseName } = req.params;
-
-  try {
-      const data = await query(`SELECT * FROM courses WHERE course_name = "${courseName}"`);
-      if (!data || !data.length) {
-          return res.status(404).json({ message: 'Course not found.' });
-      }
-      res.json(data); // Ensure this is sending a JSON object
-  } catch (error) {
-      console.error('Database query error:', error);
-      res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
-
-
-
-
-app.get('/api/course_data/:courseName', (req, res) => {
-  const { courseName } = req.params;
-  const uploadsDir = path.join(__dirname, 'uploads');
-
-  console.log("courseName:", courseName);
-  console.log('Uploads Directory:', uploadsDir);
-
-  const data = query(`select * from courses where course_name = "${courseName}"`);
-  console.log("Data :", data);
-  fs.readdir(uploadsDir, (err, files) => {
-      if (err) {
-          console.error('Error reading directory:', err);
-          return res.status(500).json({ message: 'Internal Server Error' });
-      }
-      
-      console.log("Available files:", files);
-
-      // Get all files without filtering
-      const courseFiles = files;
-
-      console.log("All courseFiles:", courseFiles);
-
-      const material = courseFiles.map(file => {
-          const filePath = path.join(uploadsDir, file);
-          const stats = fs.statSync(filePath);
-          return {
-              name: file,
-              url: `/uploads/${file}`,
-              size: stats.size,
-              lastModified: stats.mtime,
-              mimetype: mime.lookup(file) || 'application/octet-stream'
-          };
-      });
-
-      if (material.length === 0) {
-          return res.status(404).json({ message: 'No material found for this course.' });
-      }
-
-      res.json(material);
-  });
-});
-
-
-
-// app.post('/api/upload_files/:courseName', upload.array('files', 10), async (req, res) => {
-//   const courseName = req.params.courseName;
-
-//   if (!req.files || req.files.length === 0) {
-//     return res.status(400).json({ error: 'No files uploaded' });
-//   }
-
-//   try {
-//     // Fetch the existing material for the course
-//     const results = await query('SELECT material FROM courses WHERE course_name = ?', [courseName]);
-//     const course = results[0];
-
-//     let material = [];
-
-//     if (course && typeof course.material === 'string') {
-//       if (course.material.trim() !== "") {
-//         try {
-//           material = JSON.parse(course.material);
-//         } catch (error) {
-//           console.error('Error parsing material JSON:', error);
-//           material = [];
-//         }
-//       }
-//     }
-
-//     // Determine the next available materialID
-//     let nextMaterialID = 1;
-//     if (material.length > 0) {
-//       const lastMaterial = material[material.length - 1];
-//       nextMaterialID = lastMaterial.materialID + 1;
-//     }
-
-//     // Map the uploaded files and assign a unique sequential materialID
-//     const files = req.files.map((file, index) => ({
-//       materialID: nextMaterialID + index, // Assign a sequential ID
-//       name: file.originalname,
-//       url: `/uploads/${file.originalname}`,
-//       mimetype: file.mimetype
-//     }));
-
-//     // Combine the existing materials with the newly uploaded files
-//     const updatedMaterial = [...material, ...files];
-
-//     // Update the database with the new material list
-//     await query('UPDATE courses SET material = ? WHERE course_name = ?', [JSON.stringify(updatedMaterial), courseName]);
-
-//     res.status(200).json({ message: 'Files uploaded successfully' });
-//   } catch (error) {
-//     console.error('Error uploading files:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
 
 
 // // Endpoint to upload files
@@ -3398,196 +3247,6 @@ app.post('/api/upload_files/:courseName', upload.array('files', 100), async (req
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-// app.post('/api/upload_files/:courseName', upload.array('files', 100), async (req, res) => {
-//   const courseName = req.params.courseName;
-
-//   if (!req.files || req.files.length === 0) {
-//     return res.status(400).json({ error: 'No files uploaded' });
-//   }
-
-//   try {
-//     const results = await query('SELECT material FROM courses WHERE course_name = ?', [courseName]);
-//     const course = results[0];
-
-//     let material = [];
-
-//     if (course && course.material) {
-//       if (typeof course.material === 'string') {
-//         try {
-//           material = JSON.parse(course.material) || [];
-//         } catch (error) {
-//           console.error('Error parsing material JSON:', error);
-//           material = [];
-//         }
-//       } else {
-//         material = course.material;
-//       }
-//     }
-
-//     let nextMaterialID = material.length > 0 ? material[material.length - 1].materialID + 1 : 1;
-
-//     // Process uploaded files
-//     const newFiles = await Promise.all(req.files.map(async (file, index) => {
-//       let htmlContent = '';
-//       const filePath = path.join(__dirname, '/uploads/', file.originalname);
-//       const outputHtmlPath = filePath.replace('.pdf', '.html'); // Path for converted HTML file
-
-//       // Convert PDF or DOCX to HTML
-//       if (file.mimetype === 'application/pdf') {
-//         // Convert PDF to HTML using pdftohtmljs
-//         const converter = new pdftohtml(filePath, outputHtmlPath);
-
-//         try {
-//           await converter.convert();
-//           htmlContent = fs.readFileSync(outputHtmlPath, 'utf8'); // Read the converted HTML
-//           console.log(`Converted PDF to HTML: ${outputHtmlPath}`);
-//         } catch (error) {
-//           console.error('Error converting PDF to HTML:', error);
-//         }
-//       } else if (file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || 
-//                  file.mimetype === 'application/msword') {
-//         // Convert DOC/DOCX to HTML
-//         const result = await mammoth.convertToHtml({ path: filePath });
-//         htmlContent = result.value; // HTML string
-//       }
-
-//       // Create new material entry
-//       return {
-//         materialID: nextMaterialID + index,
-//         name: file.originalname,
-//         url: `/uploads/${path.basename(outputHtmlPath)}`,  // Store converted HTML file URL
-//         mimetype: file.mimetype,
-//         htmlContent,  // Store HTML content
-//       };
-//     }));
-
-//     const updatedMaterial = [...material, ...newFiles];
-
-//     // Save updated material to the database
-//     await query('UPDATE courses SET material = ? WHERE course_name = ?', [JSON.stringify(updatedMaterial), courseName]);
-
-//     res.status(200).json({ message: 'Files uploaded and converted successfully', material: updatedMaterial });
-//   } catch (error) {
-//     console.error('Error uploading and converting files:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-
-app.post('/api/courses/:courseName/update_files', async (req, res) => {
-  const { courseName } = req.params;
-  const { files, deleteFiles } = req.body; // Extract files to add and files to delete
-
-  try {
-    // Fetch existing course materials from the database
-    const results = await query('SELECT material FROM courses WHERE course_name = ?', [courseName]);
-    const course = results[0];
-    
-    let material = course.material ? JSON.parse(course.material) : [];
-
-    // Remove files from the uploads folder and material array
-    deleteFiles.forEach(fileName => {
-      const filePath = path.join(__dirname, 'uploads', fileName);
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);  // Delete the file from the uploads folder
-      }
-      
-      // Filter the material array to remove the deleted file
-      material = material.filter(file => file.name !== fileName);
-    });
-
-    // Append new files to the material array
-    files.forEach(file => {
-      // Ensure each new file gets a unique materialID
-      const materialID = material.length > 0 ? material[material.length - 1].materialID + 1 : 1;
-      material.push({ ...file, materialID });
-    });
-
-    // Update the database with the new material list
-    await query('UPDATE courses SET material = ? WHERE course_name = ?', [JSON.stringify(material), courseName]);
-
-    res.status(200).json({ message: 'Files updated successfully', material });
-  } catch (error) {
-    console.error('Error updating files:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
-
-
-
-
-
-
-
-
-app.post('/api/courses/:courseName/remove_file', (req, res) => {
-  const { courseName } = req.params;
-  const { fileName } = req.body;
-
-  // Log incoming request
-  console.log("Request body:", req.body);
-
-  // Construct the file path (directly in the uploads folder)
-  const uploadsDir = path.join(__dirname, 'uploads');
-  const filePath = path.join(uploadsDir, fileName);
-
-  console.log("Uploads directory path:", uploadsDir);
-  console.log("File path:", filePath);
-
-  // Check if the uploads directory exists
-  if (!fs.existsSync(uploadsDir)) {
-      console.log("Uploads directory not found:", uploadsDir);
-      return res.status(404).json({ message: 'Uploads directory not found' });
-  }
-
-  // Log files in the uploads directory for debugging
-  try {
-      const filesInDirectory = fs.readdirSync(uploadsDir);
-      console.log("Files in uploads directory:", filesInDirectory);
-  } catch (error) {
-      console.error("Error reading uploads directory:", error);
-      return res.status(500).json({ message: 'Error accessing uploads directory' });
-  }
-
-  // Check if the file exists in the uploads folder
-  if (fs.existsSync(filePath)) {
-      try {
-          // Delete the file from the filesystem
-          fs.unlinkSync(filePath);
-          console.log("File deleted successfully:", filePath);
-
-          // Query to update the material field in the database by removing the entire JSON object that matches the file
-          const updateQuery = `
-              UPDATE courses
-              SET material = JSON_REMOVE(material,
-                  JSON_UNQUOTE(JSON_SEARCH(material, 'one', ?))
-              )
-              WHERE course_name = ?`;
-
-          // Execute the database query to remove the entire JSON object from the material array
-          query(updateQuery, [fileName, courseName], (err, result) => {
-              if (err) {
-                  console.error("Error updating material field in database:", err);
-                  return res.status(500).json({ message: 'Error updating database' });
-              }
-
-              console.log("Material updated in database:", result);
-              return res.status(200).json({ message: 'File deleted successfully and material updated in the database' });
-          });
-
-      } catch (error) {
-          console.error("Error deleting file:", error);
-          return res.status(500).json({ message: 'Error deleting file' });
-      }
-  } else {
-      console.log("File not found:", filePath);
-      return res.status(404).json({ message: 'File not found' });
-  }
-});
-
-
-
-
 
 
 app.get('/api/intern-courses/:internId', async (req, res) => {
@@ -3602,7 +3261,7 @@ app.get('/api/intern-courses/:internId', async (req, res) => {
     const internDomain = internData.domain;
     console.log("internDomain :", internDomain);
     const courses = await query(`
-      SELECT id, CourseName, Topic, SubTopic, Materials 
+      SELECT id, CourseName, Topic, SubTopic, Materials, Quiz 
       FROM Course 
       WHERE CourseName = ?`, [internDomain]);
     // console.log("courses :", courses);
@@ -3752,6 +3411,7 @@ app.post('/api/update-progress', async (req, res) => {
           completeProgress[courseID].topics[topicID].subTopics[subTopicID] = {
             status: subTopics[subTopicID].status,
             materials: {},
+            quizCompleted: subTopics[subTopicID].quizCompleted || false, // Include quiz status
           };
 
           const materials = subTopics[subTopicID].materials;
@@ -3759,6 +3419,16 @@ app.post('/api/update-progress', async (req, res) => {
             completeProgress[courseID].topics[topicID].subTopics[subTopicID].materials[materialID] = materials[materialID];
           }
         }
+
+        // Include topic-level quiz status if it exists
+        if (topics[topicID].quizCompleted !== undefined) {
+          completeProgress[courseID].topics[topicID].quizCompleted = topics[topicID].quizCompleted;
+        }
+      }
+
+      // Include course-level quiz status if it exists
+      if (progress[courseID].quizCompleted !== undefined) {
+        completeProgress[courseID].quizCompleted = progress[courseID].quizCompleted;
       }
     }
 
@@ -3789,61 +3459,154 @@ app.post('/api/update-progress', async (req, res) => {
 });
 
 
+// app.get('/api/intern-progress/:internID', async (req, res) => {
+//   const internID = req.params.internID;
+
+//   try {
+//     const result = await query(`SELECT progress FROM course_status WHERE internID = ?`, [internID]);
+//     if (result.length > 0 && result[0].progress) {
+//       const progressData = result[0].progress;
+//       const progress = typeof progressData === "string" ? JSON.parse(progressData) : progressData;
+//       console.log("Progress :", progress);
+//       console.log("Progress Topics:", progress.topics);
+//       // console.log("Progress :", progress);
+//       // console.log("Progress :", progress);
+      
+//       const courseData = [];
+
+//       for (const courseID in progress) {
+//         let completedMaterials = 0;
+//         let totalMaterials = 0;
+
+//         const course = progress[courseID];
+//         if (course.topics) {
+//           for (const topic in course.topics) {
+//             const topicData = course.topics[topic];
+//             if (topicData.subTopics) {
+//               for (const subTopic in topicData.subTopics) {
+//                 const subTopicData = topicData.subTopics[subTopic];
+//                 if (subTopicData.materials) {
+//                   totalMaterials += Object.keys(subTopicData.materials).length;
+//                   completedMaterials += Object.values(subTopicData.materials).filter(status => status === true).length;
+//                 }
+//               }
+//             }
+//           }
+//         }
+
+//         const courseResult = await query(`
+//           SELECT CourseName
+//           FROM Course
+//           WHERE id = ?
+//         `, [courseID]);
+        
+//         console.log("course result :", courseResult);
+
+//         if (courseResult.length > 0) {
+//           const { course_name } = courseResult[0];
+//           courseData.push({
+//             course_name,
+//             completed_materials: completedMaterials,
+//             total_materials: totalMaterials,
+//           });
+//         }
+//       }
+
+//       console.log("courseData:", JSON.stringify(courseData, null, 2));
+//       res.json({ course_status: progress, courseData });
+//     } else {
+//       res.json({ course_status: {} });
+//     }
+//   } catch (error) {
+//     console.error('Error fetching course progress:', error);
+//     res.status(500).json({ error: 'Failed to fetch course progress' });
+//   }
+// });
+
+
+
+// API to get material content URL based on materialId
+
 app.get('/api/intern-progress/:internID', async (req, res) => {
   const internID = req.params.internID;
 
   try {
     const result = await query(`SELECT progress FROM course_status WHERE internID = ?`, [internID]);
-
     if (result.length > 0 && result[0].progress) {
-      // Ensure the progress field is parsed correctly
       const progressData = result[0].progress;
-
-      // Parse only if the progressData is a string, otherwise, assume it's already an object
       const progress = typeof progressData === "string" ? JSON.parse(progressData) : progressData;
       
-      const courseData = [];
-
-      for (const courseID in progress) {
-        let completedMaterials = 0;
-        let totalMaterials = 0;
-
-        const course = progress[courseID];
-        if (course.topics) {
-          for (const topic in course.topics) {
-            const topicData = course.topics[topic];
-            if (topicData.subTopics) {
-              for (const subTopic in topicData.subTopics) {
-                const subTopicData = topicData.subTopics[subTopic];
-                if (subTopicData.materials) {
-                  totalMaterials += Object.keys(subTopicData.materials).length;
-                  completedMaterials += Object.values(subTopicData.materials).filter(status => status === true).length;
+      const courseData = {};
+      
+      for (const row of result) {
+        const { CourseName, Topic, SubTopic, Materials } = row;
+        
+        if (!courseData[CourseName]) {
+          courseData[CourseName] = { topics: {}, completed_materials: 0, total_materials: 0 };
+        }
+        
+        if (Topic) {
+          if (!courseData[CourseName].topics[Topic]) {
+            courseData[CourseName].topics[Topic] = { subTopics: {}, completed_materials: 0, total_materials: 0 };
+          }
+          
+          if (SubTopic) {
+            if (!courseData[CourseName].topics[Topic].subTopics[SubTopic]) {
+              courseData[CourseName].topics[Topic].subTopics[SubTopic] = { materials: [], completed_materials: 0, total_materials: 0 };
+            }
+            
+            if (Materials) {
+              const materialsList = Array.isArray(Materials) ? Materials : [Materials];
+              
+              for (const material of materialsList) {
+                courseData[CourseName].topics[Topic].subTopics[SubTopic].materials.push(material);
+                courseData[CourseName].topics[Topic].subTopics[SubTopic].total_materials++;
+                courseData[CourseName].topics[Topic].total_materials++;
+                courseData[CourseName].total_materials++;
+                
+                // Assuming `material` contains a `status` field indicating completion
+                if (material.status) {
+                  courseData[CourseName].topics[Topic].subTopics[SubTopic].completed_materials++;
+                  courseData[CourseName].topics[Topic].completed_materials++;
+                  courseData[CourseName].completed_materials++;
                 }
               }
             }
           }
         }
-
-        const courseResult = await query(`
-          SELECT CourseName
-          FROM Course
-          WHERE id = ?
-        `, [courseID]);
-
-        if (courseResult.length > 0) {
-          const { course_name } = courseResult[0];
-          courseData.push({
-            course_name,
-            completed_materials: completedMaterials,
-            total_materials: totalMaterials,
-          });
-        }
+        console.log("courseData :", courseData)
       }
 
-      console.log("courseData:", JSON.stringify(courseData, null, 2));
-      res.json({ course_status: progress, courseData });
+      // Transform courseData to the desired format for the frontend
+      const transformedCourseData = Object.keys(courseData).map((courseName) => {
+        const course = courseData[courseName];
+        return {
+          course_name: courseName,
+          completed_materials: course.completed_materials,
+          total_materials: course.total_materials,
+          topics: Object.keys(course.topics).map((topicName) => {
+            const topic = course.topics[topicName];
+            return {
+              topic_name: topicName,
+              completed_materials: topic.completed_materials,
+              total_materials: topic.total_materials,
+              subtopics: Object.keys(topic.subTopics).map((subTopicName) => {
+                const subTopic = topic.subTopics[subTopicName];
+                return {
+                  subtopic_name: subTopicName,
+                  completed_materials: subTopic.completed_materials,
+                  total_materials: subTopic.total_materials,
+                  materials: subTopic.materials,
+                };
+              }),
+            };
+          }),
+        };
+      });
+
+      res.json({ course_status: progress, courseData: transformedCourseData });
     } else {
-      res.json({ course_status: {} });
+      res.json({ course_status: {}, courseData: [] });
     }
   } catch (error) {
     console.error('Error fetching course progress:', error);
@@ -3853,8 +3616,6 @@ app.get('/api/intern-progress/:internID', async (req, res) => {
 
 
 
-
-// API to get material content URL based on materialId
 app.get('/api/get-material-content/:materialId', async (req, res) => {
   const { materialId } = req.params;
 
@@ -3881,8 +3642,6 @@ app.get('/api/get-material-content/:materialId', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 
 
 
@@ -3928,24 +3687,6 @@ app.post('/api/create_topic', async (req, res) => {
 });
 
 
-// Delete Topic
-app.delete('/api/delete_topic', async (req, res) => {
-  const { courseName, topicName } = req.body;
-
-  try {
-    const sql = 'DELETE FROM course WHERE Course = ? AND Topic = ?';
-    await query(sql, [courseName, topicName], (err) => {
-      if (err) {
-        console.error('Error deleting topic:', err);
-        return res.status(500).json({ error: 'Failed to delete topic' });
-      }
-      return res.status(200).json({ message: 'Topic deleted successfully' });
-    });
-  } catch (error) {
-    console.error('Server Error:', error);
-    return res.status(500).json({ error: 'Server Error' });
-  }
-});
 
 
 
@@ -3989,28 +3730,6 @@ app.delete('/api/delete_subtopic', async (req, res) => {
 });
 
 
-// Add/Update Materials for SubTopic
-// app.post('/api/add_material/:courseName/:Topic/:SubTopic', upload.array('files'), async (req, res) => {
-//   const { courseName, Topic, SubTopic } = req.params;
-
-//   const materials = req.files;
-//   console.log(materials);
-//   console.log(req.params);
-//   try {
-//     const sql = 'UPDATE Course SET Materials = ? WHERE CourseName = ? AND Topic = ? AND SubTopic = ?';
-//     await query(sql, [JSON.stringify(materials), courseName, Topic, SubTopic], (err) => {
-//       if (err) {
-//         console.error('Error adding materials:', err);
-//         return res.status(500).json({ error: 'Failed to add materials' });
-//       }
-//       return res.status(200).json({ message: 'Materials added successfully' });
-//     });
-//   } catch (error) {
-//     console.error('Server Error:', error);
-//     return res.status(500).json({ error: 'Server Error' });
-//   }
-// });
-// Add/Update Materials for SubTopic
 app.post('/api/add_material/:courseName/:Topic/:SubTopic', upload.array('files', 100), async (req, res) => {
   const { courseName, Topic, SubTopic } = req.params;
 
@@ -4094,6 +3813,25 @@ app.delete('/api/delete_course/:courseName', async (req, res) => {
   }
 });
 
+// Delete Topic
+app.delete('/api/delete_topic', async (req, res) => {
+  const { courseName, topicName } = req.body;
+
+  try {
+    const sql = 'DELETE FROM course WHERE Course = ? AND Topic = ?';
+    await query(sql, [courseName, topicName], (err) => {
+      if (err) {
+        console.error('Error deleting topic:', err);
+        return res.status(500).json({ error: 'Failed to delete topic' });
+      }
+      return res.status(200).json({ message: 'Topic deleted successfully' });
+    });
+  } catch (error) {
+    console.error('Server Error:', error);
+    return res.status(500).json({ error: 'Server Error' });
+  }
+});
+
 
 // Create Subtopic
 app.post('/api/add_subtopic', async (req, res) => {
@@ -4110,3 +3848,113 @@ app.post('/api/add_subtopic', async (req, res) => {
   }
 });
 
+
+
+
+app.post('/api/save-lms-questions', (req, res) => {
+  const { token, enable, pages_data, CourseName, Topic, SubTopic } = req.body;
+  console.log(req.body);
+
+  if (!token || !pages_data || !CourseName) {
+    return res.status(400).send('Missing required fields');
+  }
+  const quizData = {
+    token: token,
+    enable: enable,
+    pages_data: JSON.parse(pages_data) // Parsing pages_data as it's received as a string
+  };
+
+  let updateQuery;
+  let queryParams;
+
+  if (SubTopic) {
+    updateQuery = 'UPDATE Course SET Quiz = ? WHERE CourseName = ? AND Topic = ? AND SubTopic = ?';
+    queryParams = [JSON.stringify(quizData), CourseName, Topic, SubTopic];
+  } else if (Topic) {
+    updateQuery = 'UPDATE Course SET Quiz = ? WHERE CourseName = ? AND Topic = ? AND SubTopic IS NULL';
+    queryParams = [JSON.stringify(quizData), CourseName, Topic];
+  } else {
+    updateQuery = 'UPDATE Course SET Quiz = ? WHERE CourseName = ? AND Topic IS NULL AND SubTopic IS NULL';
+    queryParams = [JSON.stringify(quizData), CourseName];
+  }
+
+  pool.query(updateQuery, queryParams, (err, result) => {
+    if (err) {
+      console.error('Error updating quiz:', err);
+      return res.status(500).send('Error updating quiz');
+    }    
+    console.log(result);
+    res.status(200).send('Quiz updated successfully');
+  });
+
+});
+
+
+app.get('/api/get-lms-quiz/:token', (req, res) => {
+  const { token } = req.params;
+  console.log()
+  if (!token) {
+    return res.status(400).send('Token is required');
+  }
+
+  // SQL query to fetch the quiz data based on the token
+  const fetchQuery = 'SELECT Quiz FROM Course WHERE Quiz->"$.token" = ?';
+  console.log("fetchQuery :", fetchQuery);
+
+  pool.query(fetchQuery, [token], (err, result) => {
+    if (err) {
+      console.error('Error fetching quiz data:', err);
+      return res.status(500).send('Error fetching quiz data');
+    }
+
+    if (result.length === 0) {
+      return res.status(404).send('No quiz found with the given token');
+    }
+
+    const quizData = result[0].Quiz; // This is the JSON object stored in the Quiz column
+    console.log("quizData :", quizData);
+    res.status(200).json(quizData); // Send the quiz data as a JSON response
+  });
+});
+
+
+
+app.post('/api/update-lms-quiz-status', (req, res) => {
+  const { token , status } = req.body;
+  console.log(token, status);
+  const query = 'UPDATE Course SET quiz_status = ? WHERE token = ?';
+  pool.query(query, [status, quizId], (error, results) => {
+    if (error) {
+      console.error('Error updating quiz status', error);
+      return res.status(500).json({ success: false, message: 'Failed to update quiz status' });
+    }
+    res.json({ success: true, message: 'Quiz status updated successfully' });
+  });
+});
+
+
+
+
+app.post('/api/submit-quiz/:token', async (req, res) => {
+  const { internID, responses, score } = req.body;
+  const token = req.params.token;
+  const attemptedAt = new Date();
+  console.log(internID, responses, score, token, attemptedAt)
+  try {
+    const [latestAttempt] = await query(
+      'SELECT COALESCE(MAX(attempt_no), 0) AS latestAttempt FROM lms_responses WHERE internID = ? AND token = ?',
+      [internID, token]
+    );
+
+    const attemptNo = latestAttempt.latestAttempt + 1; // Increment attempt number
+    await query(
+      'INSERT INTO lms_responses (internID, result, Attempted_at, attempt_no, token, responses) VALUES (?, ?, ?, ?, ?, ?)',
+      [internID, score, attemptedAt, attemptNo, token, JSON.stringify(responses)]
+    );
+
+    res.status(201).json({ message: 'Quiz responses submitted successfully.' });
+  } catch (error) {
+    console.error('Error submitting quiz:', error);
+    res.status(500).json({ message: 'Error submitting quiz data.' });
+  }
+});

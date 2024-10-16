@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import './preview.css';
 import { useParams } from 'react-router-dom';
-import apiService from '../../../../../apiService';
+import apiService from '../../../../apiService';
 import Pagination from '@mui/material/Pagination';
 
-const PreviewQuiz = () => {
+const PreviewQuiz = ({token}) => {
   const [quizData, setQuizData] = useState(null);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const currentPath = window.location.pathname;
-  const token = currentPath.split('/')[4];
+  // const currentPath = window.location.pathname;
   // const token = currentPath.split('/')[6];
 
-  console.log("TOKEN :", token);  
   useEffect(() => {
     if (token) {
-      apiService.get(`/api/get-quiz/${token}`)
+      apiService.get(`/api/get-lms-quiz/${token}`)
         .then(response => {
           const data = response.data;
           console.log('Received data:', data);
           if (data && data.pages_data) {
             try {
-              const parsedPages = JSON.parse(data.pages_data);
+              // const parsedPages = JSON.parse(data.pages_data);
+              const parsedPages = data.pages_data;
               setQuizData(parsedPages);
             } catch (error) {
               console.error('Error parsing pages_data:', error);

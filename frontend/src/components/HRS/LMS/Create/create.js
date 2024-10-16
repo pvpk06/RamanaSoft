@@ -2,66 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import BulkUpload from './import/Import';
-import { useParams } from 'react-router-dom';
 import {Button} from '@mui/material';
 import { FaTrashAlt, FaRegSave } from 'react-icons/fa';
 import './create.css';
 import Notification from './notification'
-import apiService from '../../../../../../apiService';
-const CreationPage = () => {
-  const [pages, setPages] = useState([]);
+import apiService from '../../../../apiService';
+const CreationPage = ({enabled, token, course, topic, subTopic}) => {
+  console.log(token);
+  console.log(enabled);
+  console.log(course);
+  console.log(topic);
+  console.log(subTopic);
   
-  const currentPath = window.location.pathname;
-  const token = currentPath.split('/')[4];
-  // const token = currentPath.split('/')[6];
-
-  console.log("TOKEN :", token);
-  const params = useParams();
-  const paramValue = params['*']; 
-  const commaSeparated = paramValue.split('/').join(', ');
-  console.log("Comma-separated params:", commaSeparated);
-
+  const [pages, setPages] = useState([]);
   const [showDropdown, setShowDropdown] = useState(null);
   const [notification, setNotification] = useState({ message: '', type: '' });
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
-  // useEffect(() => {
-  //   const fetchQuizData = async () => {
-  //     try {
-  //       const response = await apiService.get(`/get-quiz/${token}`);
-  //       const data = response.data;
-  //       if (response.ok) {
-  //         console.log('Fetched data:', data);
-  //         const formattedPages = data.pages_data ? JSON.parse(data.pages_data) : [];
-  //         console.log('Formatted pages:', formattedPages);
-  //         const transformedPages = formattedPages.map(page => page.question_list || []);
-  //         setPages(transformedPages);
-  //       } else {
-  //         console.error('Error fetching quiz data:', data);
-  //         setNotification({ message: 'Failed to fetch quiz data', type: 'error' });
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching quiz data:', error);
-  //     }
-  //   };
-
-  //   fetchQuizData();
-  // }, [token]);
-
-
   useEffect(() => {
     const fetchQuizData = async () => {
       try {
-        const response = await apiService.get(`/api/get-quiz/${token}`);
+        const response = await apiService.get(`/api/get-lms-quiz/${token}`);
         const data = response.data;
+        console.log("response, ", data)
         if (response.status === 200) {
           console.log('Fetched data:', data);
           
-          // Parse the pages_data if it exists and is a valid JSON string
-          const formattedPages = data.pages_data ? JSON.parse(data.pages_data) : [];
+          const formattedPages = data.pages_data;
           console.log('Formatted pages:', formattedPages);
   
-          // Map through the parsed pages to structure them as expected
           const transformedPages = formattedPages.map(page => page.question_list || []);
           
           setPages(transformedPages);
@@ -187,30 +156,36 @@ const CreationPage = () => {
   };
 
   const saveQuestions = () => {
-    const formattedPages = pages.map((page, index) => ({
-      page_no: index + 1,
-      no_of_questions: page.length,
-      question_list: page
+    // Format the pages data
+    const formattedPages = pages.map((page) => ({
+        question_list: page
     }));
     console.log("formattedPages", formattedPages);
+
+    // Construct the data object with the required fields
     const data = {
-      token: token,
-      no_of_pages: pages.length,
-      pages_data: JSON.stringify(formattedPages)
+        token: token,
+        enable: enabled, // Assuming this is already managed in the state/props
+        pages_data: JSON.stringify(formattedPages),
+        CourseName: course, // Assuming CourseName is available as course
+        Topic: topic, // Assuming Topic is available as topic
+        SubTopic: subTopic // Assuming SubTopic is available as subTopic
     };
+    
     console.log("data", data);
 
-    apiService.post('/api/save-questions', data)
-    .then(response => {
-      console.log('Response:', response.data);
-      setNotification({ message: 'Questions saved successfully!', type: 'success' });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setNotification({ message: 'Failed to save questions. Please try again.', type: 'error' });
-    });
-  
-  };
+    // Send the POST request
+    apiService.post('/api/save-lms-questions', data)
+        .then(response => {
+            console.log('Response:', response.data);
+            setNotification({ message: 'Questions saved successfully!', type: 'success' });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            setNotification({ message: 'Failed to save questions. Please try again.', type: 'error' });
+        });
+};
+
 
   const addPage = () => {
     setPages([...pages, []]);

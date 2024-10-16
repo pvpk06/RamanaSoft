@@ -20,8 +20,8 @@ function Home({setSelectedView}) {
         try {
             setLoading(true);
             const response = await apiService.get(`/api/intern-progress/${internID}`);
-            console.log(response);
-            setCourseStatus(response.data.courseData || []); // Fallback to an empty array if data is not present
+            console.log(response.data);
+            setCourseStatus(response.data.courseData || []);
         } catch (error) {
             console.error('Error fetching course progress:', error);
         } finally {

@@ -276,8 +276,8 @@ import apiService from '../../../../../../apiService';
 
 const Publish = () => {
   const currentPath = window.location.pathname;
-  // const token = currentPath.split('/')[4];
-  const token = currentPath.split('/')[6];
+  const token = currentPath.split('/')[4];
+  // const token = currentPath.split('/')[6];
 
   const [quizDetails, setQuizDetails] = useState({});
   const [quizLink, setQuizLink] = useState('');
